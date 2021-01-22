@@ -17,6 +17,11 @@ public class TagsList: UIView, TagsListProtocol {
     public var itemsConfiguration: TagsListItemConfiguratorProtocol = TagViewItemConfigurator()
     public weak var tagsListDelegate: TagsListDelegate?
     public var tagsListDataSource: TagsListDataSource?
+    public var alignment: TagsLayout.Alignment = .left {
+        didSet {
+            enableContentOrientation()
+        }
+    }
     
     var spacing: CGFloat = 5
     public var contentOrientation: ContentOrientation = .verticalScrollable {
@@ -77,7 +82,7 @@ public class TagsList: UIView, TagsListProtocol {
     }
     
     private func setup() {
-        layout = TagsLayout()
+        layout = TagsLayout(alignment: alignment)
         tagCollectionView = DynamicHeightCollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         enableContentOrientation()
 
@@ -103,11 +108,11 @@ public class TagsList: UIView, TagsListProtocol {
             layout.scrollDirection = .horizontal
             heightConstraint = heightAnchor.constraint(equalToConstant: itemsConfiguration.cellHeight)
         case .verticalScrollable:
-            layout = TagsLayout()
+            layout = TagsLayout(alignment: alignment)
             layout.scrollDirection = .vertical
             heightConstraint = heightAnchor.constraint(equalToConstant: heightForVerticalContentOrientation ?? itemsConfiguration.cellHeight)
         case .verticalSizeToFit:
-            layout = TagsLayout()
+            layout = TagsLayout(alignment: alignment)
             layout.scrollDirection = .vertical
             heightConstraint = heightAnchor.constraint(equalTo: tagCollectionView.contentLayoutGuide.heightAnchor)
         }

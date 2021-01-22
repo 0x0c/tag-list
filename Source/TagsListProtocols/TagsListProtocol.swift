@@ -14,7 +14,7 @@ public protocol TagsListProtocol: UIView {
     var tagsListDataSource: TagsListDataSource? { get set }
     var tagsListDelegate: TagsListDelegate? { get set }
     var itemsConfiguration: TagsListItemConfiguratorProtocol { get set }
-    
+    var alignment: TagsLayout.Alignment { get set }
     var minimumInteritemSpacing: CGFloat { get set }
     var minimumLineSpacing: CGFloat { get set }
     var contentOrientation: ContentOrientation { get set }

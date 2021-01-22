@@ -190,6 +190,15 @@ class TagsListTestViewController: UIViewController {
         button.layer.cornerRadius = 20
         button.setTitle("Change ContentOrientation", for: .normal)
         button.addTarget(self, action: #selector(changeContentOrientation), for: .touchUpInside)
+        
+        let button2 = UIButton()
+        stack.addArrangedSubview(button2)
+        button2.translatesAutoresizingMaskIntoConstraints = false
+        button2.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        button2.backgroundColor = color
+        button2.layer.cornerRadius = 20
+        button2.setTitle("Change Alignment", for: .normal)
+        button2.addTarget(self, action: #selector(changeAlighment), for: .touchUpInside)
     }
 
     private func setupTagViewSettingsSwitches(stack: UIStackView) {
@@ -359,6 +368,10 @@ class TagsListTestViewController: UIViewController {
             tagsListView.contentOrientation = .horizontal
         }
         contentOrientationLabel.text = String(describing: tagsListView.contentOrientation)
+    }
+    
+    @objc func changeAlighment() {
+        tagsListView.alignment = TagsLayout.Alignment.allCases[(tagsListView.alignment.rawValue + 1) % TagsLayout.Alignment.allCases.count]
     }
 }
 
