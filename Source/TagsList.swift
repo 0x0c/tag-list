@@ -38,20 +38,14 @@ public class TagsList: UIView, TagsListProtocol {
             }
         }
     }
-    public var minimumInteritemSpacing: CGFloat {
-        get {
-            return layout.minimumInteritemSpacing
-        }
-        set {
-            layout.minimumInteritemSpacing = newValue
+    public var minimumInteritemSpacing: CGFloat = 10 {
+        didSet {
+            layout.minimumInteritemSpacing = minimumInteritemSpacing
         }
     }
-    public var minimumLineSpacing: CGFloat {
-        get {
-            return layout.minimumLineSpacing
-        }
-        set {
-            layout.minimumLineSpacing = newValue
+    public var minimumLineSpacing: CGFloat = 10{
+        didSet {
+            layout.minimumLineSpacing = minimumLineSpacing
         }
     }
     override public var backgroundColor: UIColor? {
@@ -106,14 +100,20 @@ public class TagsList: UIView, TagsListProtocol {
         case .horizontal:
             layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .horizontal
+            layout.minimumLineSpacing = minimumLineSpacing
+            layout.minimumInteritemSpacing = minimumInteritemSpacing
             heightConstraint = heightAnchor.constraint(equalToConstant: itemsConfiguration.cellHeight)
         case .verticalScrollable:
             layout = TagsLayout(alignment: alignment)
             layout.scrollDirection = .vertical
+            layout.minimumLineSpacing = minimumLineSpacing
+            layout.minimumInteritemSpacing = minimumInteritemSpacing
             heightConstraint = heightAnchor.constraint(equalToConstant: heightForVerticalContentOrientation ?? itemsConfiguration.cellHeight)
         case .verticalSizeToFit:
             layout = TagsLayout(alignment: alignment)
             layout.scrollDirection = .vertical
+            layout.minimumLineSpacing = minimumLineSpacing
+            layout.minimumInteritemSpacing = minimumInteritemSpacing
             heightConstraint = heightAnchor.constraint(equalTo: tagCollectionView.contentLayoutGuide.heightAnchor)
         }
         heightConstraint?.isActive = true
